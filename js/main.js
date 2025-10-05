@@ -15,12 +15,12 @@ const Apps = {
 
 // Desktop icon definitions
 const desktopIcons = [
-  { app: 'terminal', x: 20, y: 20, label: 'Terminal', icon: 'icons/terminal.png' },
-  { app: 'editor', x: 20, y: 110, label: 'Text Editor', icon: 'icons/editor.png' },
-  { app: 'files', x: 20, y: 200, label: 'File Manager', icon: 'icons/files.png' },
-  { app: 'calculator', x: 20, y: 290, label: 'Calculator', icon: 'icons/calculator.png' },
-  { app: 'clock', x: 20, y: 380, label: 'Clock', icon: 'icons/clock.png' },
-  { app: 'about', x: 20, y: 470, label: 'About', icon: 'icons/about.png' }
+  { app: 'terminal', x: 20, y: 20, label: 'Terminal', icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAmklEQVR42u2WQQ6AIAwEsf//6Xox8SAJbWkLxIPOhYTsZAqFGvkfAgwCDHoDanXW1UwBWi0XoFVzAVrVDaDVdAFa3Q2gVdoAtHobQKu5AbTaG0CrtQG0ihtAq7YBtDobQKu2AbQaG0CrtwG0OhtAq7YBtDobQKu2AbQaG0Crtwm0GhtAq7MBtGobQKuxAbR6G0CrswG0ahtAK/8geAEfKB84MYT3pQAAAABJRU5ErkJggg==' },
+  { app: 'editor', x: 20, y: 110, label: 'Text Editor', icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAf0lEQVR42u3WwQnAIBBE0Yn3zkYs0VpsxRLswxLswxI2FyEQNO7qQQbmJMAH/0gEaK1dAKy1HoBa6wWgWusJoFp7AVCtfQBQax8AtfYBUK19AFBrHwDV2gdAtfYBUK09AKi1B4Bq7QFQrT0AVGsPgGrtAVCtvQNU698C+ACjjTNpXvGWIgAAAABJRU5ErkJggg==' },
+  { app: 'files', x: 20, y: 200, label: 'File Manager', icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAeUlEQVR42u2WMQ6AIAxFKdz/zjIyCxM6SAstLfAn2aR5afulBbTW3gCstQ+AamsPQLX2BaC19gRQrX0BaK09AVRrXwBaa08A1doXgNbaE0C19gWgtfYEUK19AWitPQFUa18AWmtPANXaF4DW2hNAtfYFoLX2BFCtfQOYfAFP+zyME/XFqQAAAABJRU5ErkJggg==' },
+  { app: 'calculator', x: 20, y: 290, label: 'Calculator', icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAjklEQVR42u2WQQrAIAxEU+h979eFLqRQcEhiZh5kNkL+Z0wRKaX8BzDGvABYa18A1toXgLX2BWCtfQFYa18A1toXgLX2BWCtfQFYa18A1toXgLX2BWCtfQFYa18A1toXgLX2BWCtfQFYa18A1toXgLX2BWCtfQFYa18A1toXgLX2BWCtfQFYa98AVsqfAR/0WFr+Y26jtAAAAABJRU5ErkJggg==' },
+  { app: 'clock', x: 20, y: 380, label: 'Clock', icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVR42u2WMQ6DMAxFHXH/O3dhYEBiQMQkTvJe1aWq+rQx+UkC0lr7D2CtfQCstQ+AtfYBsNY+ANbaB8Ba+wBYax8Aa+0DYK19AKy1D4C19gGw1j4A1toHwFr7AFhrHwBr7QNgrX0ArLUPgLX2AbDWPgDW2gfAWvsAWGsfAGvtA2CtfQCstQ+AtfYBsNY+ANbaB8Ba+wBYax8Aa+0DYK19AKy1D4C19gGw1j4A1toHwFr7AFhrHwBr7QNgrX0ArLUPgLX2AbDWPgBr7SdgA4GcVLdS2qELAAAAAElFTkSuQmCC' },
+  { app: 'about', x: 20, y: 470, label: 'About', icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAArklEQVR42u2WwQnAIAxF0+K+d+wQneIjHaJTuIcl3MMSagsRQkxM8yEQ/EcIefxEQWvtP4Ax5gVgjHkBGGNeAMaYF4Ax5gVgjHkBGGNeAMaYF4Ax5gVgjHkBGGNeAMaYF4Ax5gVgjHkBGGNeAMaYF4Ax5gVgjHkBGGNeAMaYF4Ax5gVgjHkBGGNeAMaYF4AxfwP4AHinM2cYAoV3AAAAAElFTkSuQmCC' }
 ];
 
 // Initialize desktop icons

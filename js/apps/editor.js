@@ -16,6 +16,46 @@ const EditorApp = {
       content.style.display = 'flex';
       content.style.flexDirection = 'column';
       
+      // Text area (создаём раньше чтобы можно было использовать в функциях)
+      const textarea = GUI.createTextarea('', 20);
+      textarea.style.cssText = 'flex: 1; resize: none; border: none; font-family: "Lucida Console", monospace; font-size: 10pt; padding: 6px;';
+      
+      // Вспомогательные функции
+      const updateTitle = () => {
+        const fileName = currentFile ? currentFile.split('/').pop() : 'Untitled';
+        const modifiedMark = modified ? ' *' : '';
+        const titlebar = content.parentElement.querySelector('.window-title');
+        if (titlebar) {
+          titlebar.textContent = `Text Editor - ${fileName}${modifiedMark}`;
+        }
+      };
+      
+      const save = () => {
+        if (!currentFile) {
+          saveAs();
+          return;
+        }
+        
+        const result = vfs.writeFile(currentFile, textarea.value);
+        if (result.error) {
+          GUI.alert('Error', result.error);
+        } else {
+          modified = false;
+          updateTitle();
+          statusBar.textContent = 'File saved';
+          setTimeout(() => statusBar.textContent = 'Ready', 2000);
+        }
+      };
+      
+      const saveAs = () => {
+        GUI.prompt('Save As', 'Enter file path:', currentFile || 'newfile.txt', (path) => {
+          if (path) {
+            currentFile = path;
+            save();
+          }
+        });
+      };
+      
       // Menu bar
       const menuBar = GUI.createMenuBar();
       
@@ -109,10 +149,6 @@ const EditorApp = {
       menuBar.appendChild(editMenu);
       menuBar.appendChild(helpMenu);
       
-      // Text area
-      const textarea = GUI.createTextarea('', 20);
-      textarea.style.cssText = 'flex: 1; resize: none; border: none; font-family: "Lucida Console", monospace; font-size: 10pt; padding: 6px;';
-      
       textarea.addEventListener('input', () => {
         if (!modified) {
           modified = true;
@@ -122,41 +158,6 @@ const EditorApp = {
       
       // Status bar
       const statusBar = GUI.createStatusBar('Ready');
-      
-      const updateTitle = () => {
-        const fileName = currentFile ? currentFile.split('/').pop() : 'Untitled';
-        const modifiedMark = modified ? ' *' : '';
-        const titlebar = content.parentElement.querySelector('.window-title');
-        if (titlebar) {
-          titlebar.textContent = `Text Editor - ${fileName}${modifiedMark}`;
-        }
-      };
-      
-      const save = () => {
-        if (!currentFile) {
-          saveAs();
-          return;
-        }
-        
-        const result = vfs.writeFile(currentFile, textarea.value);
-        if (result.error) {
-          GUI.alert('Error', result.error);
-        } else {
-          modified = false;
-          updateTitle();
-          statusBar.textContent = 'File saved';
-          setTimeout(() => statusBar.textContent = 'Ready', 2000);
-        }
-      };
-      
-      const saveAs = () => {
-        GUI.prompt('Save As', 'Enter file path:', currentFile || 'newfile.txt', (path) => {
-          if (path) {
-            currentFile = path;
-            save();
-          }
-        });
-      };
       
       // Build UI
       content.appendChild(menuBar);

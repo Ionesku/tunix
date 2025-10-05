@@ -13,6 +13,10 @@ const TerminalApp = {
       const history = [];
       let historyIdx = -1;
       
+      // Input line (создаём сначала, чтобы можно было использовать в addLine)
+      const inputLine = document.createElement('div');
+      inputLine.className = 'terminal-input-line';
+      
       const addLine = (text, isError = false) => {
         const line = document.createElement('div');
         line.className = 'terminal-line';
@@ -29,10 +33,6 @@ const TerminalApp = {
       addLine('');
       addLine('Type "help" for available commands.');
       addLine('');
-      
-      // Input line
-      const inputLine = document.createElement('div');
-      inputLine.className = 'terminal-input-line';
       
       const prompt = document.createElement('span');
       prompt.className = 'terminal-prompt';
