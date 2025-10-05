@@ -22,11 +22,11 @@ const AboutApp = {
       subtitle.textContent = 'Common Desktop Environment';
       
       const version = document.createElement('div');
-      version.style.cssText = 'margin-bottom: 16px; font-size: 9pt; color: var(--cde-dark);';
+      version.style.cssText = 'margin-bottom: 16px; font-size: 9pt; color: var(--cde-text-disabled);';
       version.textContent = 'Version 2.5';
       
       const separator1 = document.createElement('hr');
-      separator1.style.cssText = 'width: 100%; margin: 16px 0; border: none; border-top: 1px solid var(--cde-dark);';
+      separator1.style.cssText = 'width: 100%; margin: 16px 0; border: none; border-top: 1px solid var(--cde-shadow);';
       
       const systemInfo = document.createElement('div');
       systemInfo.style.cssText = 'font-size: 9pt; line-height: 1.6; text-align: center; margin-bottom: 16px;';
@@ -39,10 +39,10 @@ const AboutApp = {
       `;
       
       const separator2 = document.createElement('hr');
-      separator2.style.cssText = 'width: 100%; margin: 16px 0; border: none; border-top: 1px solid var(--cde-dark);';
+      separator2.style.cssText = 'width: 100%; margin: 16px 0; border: none; border-top: 1px solid var(--cde-shadow);';
       
       const credits = document.createElement('div');
-      credits.style.cssText = 'font-size: 8pt; color: var(--cde-dark); text-align: center; margin-bottom: 16px;';
+      credits.style.cssText = 'font-size: 8pt; color: var(--cde-text-disabled); text-align: center; margin-bottom: 16px;';
       credits.innerHTML = `
         Simulating the classic Motif/CDE<br>
         desktop experience from the 1990s.<br>

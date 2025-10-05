@@ -4,450 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CDE - Common Desktop Environment</title>
-<style>
-/* CDE/Motif Authentic Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Authentic CDE/Motif Palette */
-:root {
-  --cde-bg: #BDBDBD; /* Base */
-  --cde-fg: #BDBDBD; /* Base */
-  --cde-light: #FFFFFF; /* light */
-  --cde-dark: #7F7F7F; /* dark */
-  --cde-darker: #3E3E3E; /* Even darker for inset effects */
-  --cde-select: #000080; /* selection */
-  --cde-titlebar: #3A3A6A;
-  --cde-titlebar-inactive: #7F7F7F;
-  --cde-text: #000000;
-  --cde-text-light: #FFFFFF;
-  --cde-desktop: #3A6272; /* Solid gray-blue */
-}
-
-body {
-  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", "Geneva", "Verdana", sans-serif;
-  font-size: 10pt;
-  font-weight: normal;
-  background: var(--cde-desktop);
-  overflow: hidden;
-  cursor: default;
-  user-select: none;
-  -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#desktop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 56px; /* Adjusted for a slightly larger Front Panel */
-  background: var(--cde-desktop);
-  /* Removed diagonal stripes for a solid color */
-}
-
-/* Desktop Icons */
-.desktop-icon {
-  position: absolute;
-  width: 74px;
-  text-align: center;
-  padding: 4px;
-  cursor: pointer;
-}
-
-.desktop-icon:hover {
-  outline: 1px dotted #000;
-  background: rgba(0,0,0,0.1);
-}
-
-.desktop-icon.selected {
-  outline: 1px dotted #000;
-  background: rgba(0,0,0,0.2);
-}
-
-.icon-image {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--cde-fg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-}
-
-.icon-label {
-  color: #FFF;
-  font-size: 10pt;
-  text-shadow: 1px 1px 1px #000;
-  line-height: 1.2;
-}
-
-/* Windows */
-.window {
-  position: absolute;
-  min-width: 200px;
-  min-height: 100px;
-  background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
-}
-
-.window.active {
-  z-index: 1000;
-}
-
-/* Window Titlebar */
-.window-titlebar {
-  height: 20px;
-  background: var(--cde-titlebar-inactive);
-  border-bottom: 2px solid var(--cde-dark);
-  display: flex;
-  align-items: center;
-  cursor: move;
-  padding: 0 2px;
-}
-
-.window.active .window-titlebar {
-  background: var(--cde-titlebar);
-}
-
-.window-sysmenu {
-  width: 16px;
-  height: 16px;
-  background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-  margin-right: 4px;
-  cursor: pointer;
-}
-
-.window-title {
-  flex: 1;
-  color: var(--cde-text-light);
-  font-size: 10pt;
-  font-weight: bold;
-  padding: 0 4px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.window-buttons {
-  display: flex;
-  gap: 2px;
-}
-
-.window-button {
-  width: 14px;
-  height: 14px;
-  background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: bold;
-}
-
-.window-button:active {
-  border-color: var(--cde-dark) var(--cde-light) var(--cde-light) var(--cde-dark);
-}
-
-.window-content {
-  flex: 1;
-  background: var(--cde-bg);
-  overflow: auto;
-  padding: 4px;
-}
-
-.window-resize {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 16px;
-  height: 16px;
-  cursor: se-resize;
-  background-image: 
-    linear-gradient(135deg, 
-      var(--cde-dark) 0%, var(--cde-dark) 15%, 
-      var(--cde-bg) 15%, var(--cde-bg) 35%, 
-      var(--cde-dark) 35%, var(--cde-dark) 50%, 
-      var(--cde-bg) 50%, var(--cde-bg) 70%, 
-      var(--cde-dark) 70%, var(--cde-dark) 85%, 
-      var(--cde-bg) 85%, var(--cde-bg) 100%);
-}
-
-/* Front Panel */
-#front-panel {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 56px;
-  background: var(--cde-bg);
-  border-top: 2px solid var(--cde-light);
-  box-shadow: none;
-  display: flex;
-  align-items: center;
-  padding: 4px;
-  gap: 4px;
-}
-
-.panel-section {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.panel-left {
-  flex-shrink: 0;
-}
-
-.panel-center {
-  flex: 1;
-}
-
-.panel-right {
-  flex-shrink: 0;
-}
-
-.panel-btn {
-  width: 48px;
-  height: 48px;
-  background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.panel-btn:active {
-  border-color: var(--cde-dark) var(--cde-light) var(--cde-light) var(--cde-dark);
-}
-
-.panel-menu-btn {
-  background: var(--cde-bg);
-  font-size: 9pt;
-  padding: 2px;
-  line-height: 1.1;
-  width: auto;
-  flex-direction: column;
-}
-
-.panel-workspaces {
-  display: grid;
-  grid-template-columns: 24px 24px;
-  grid-template-rows: 20px 20px;
-  gap: 1px;
-  padding: 2px;
-  background: var(--cde-dark);
-  border: 2px inset var(--cde-darker);
-}
-
-.workspace-btn {
-  background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-  cursor: pointer;
-}
-
-.workspace-btn.active {
-  border-color: var(--cde-dark) var(--cde-light) var(--cde-light) var(--cde-dark);
-  background: var(--cde-select);
-}
-
-.panel-taskbar {
-  flex: 1;
-  display: flex;
-  gap: 2px;
-  overflow-x: auto;
-  padding: 0 4px;
-  height: 100%;
-}
-
-.taskbar-item {
-  padding: 2px 8px;
-  background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-  cursor: pointer;
-  font-size: 10pt;
-  white-space: nowrap;
-  max-width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 24px;
-  display: flex;
-  align-items: center;
-}
-
-.taskbar-item.active {
-  border-color: var(--cde-dark) var(--cde-light) var(--cde-light) var(--cde-dark);
-  background: var(--cde-select);
-  color: #FFF;
-}
-
-.panel-clock {
-  padding: 4px 8px;
-  background: var(--cde-bg);
-  color: var(--cde-text);
-  font-size: 10pt;
-  font-family: "Lucida Typewriter", "Lucida Console", monospace;
-  border: 2px inset var(--cde-darker);
-}
-
-/* Context Menu */
-.context-menu {
-  position: absolute;
-  background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-  min-width: 120px;
-  z-index: 100000;
-  padding: 2px;
-}
-
-.context-menu-item {
-  padding: 4px 8px;
-  cursor: pointer;
-  font-size: 10pt;
-}
-
-.context-menu-item:hover:not(.disabled) {
-  background: var(--cde-select);
-  color: #FFF;
-}
-
-.context-menu-item.disabled {
-  color: var(--cde-dark);
-}
-
-.context-menu-separator {
-  height: 2px;
-  background: var(--cde-dark);
-  border-bottom: 2px solid var(--cde-light);
-  margin: 2px;
-}
-
-/* Controls */
-.motif-button {
-  background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-  padding: 4px 12px;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 10pt;
-}
-
-.motif-button:active {
-  border-color: var(--cde-dark) var(--cde-light) var(--cde-light) var(--cde-dark);
-}
-
-.motif-button.default {
-  font-weight: bold;
-  padding: 3px 11px;
-  border: 3px double var(--cde-dark);
-}
-
-.motif-input,
-.motif-textarea {
-  background: #FFF;
-  border: 2px inset var(--cde-darker);
-  padding: 2px;
-  font-family: inherit;
-  font-size: 10pt;
-}
-
-/* Terminal */
-.terminal-content {
-  background: #000;
-  color: #E0E0E0;
-  font-family: "Lucida Typewriter", "Lucida Console", "Courier New", monospace;
-  font-size: 10pt;
-  padding: 4px;
-  height: 100%;
-  overflow-y: auto;
-}
-
-.terminal-line {
-  margin: 0;
-  white-space: pre-wrap;
-}
-
-.terminal-input-line {
-  display: flex;
-}
-
-.terminal-prompt {
-  color: #E0E0E0;
-  margin-right: 4px;
-}
-
-.terminal-input-line input {
-  background: transparent;
-  border: none;
-  color: #E0E0E0;
-  font-family: inherit;
-  font-size: inherit;
-  outline: none;
-  flex: 1;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 16px;
-  height: 16px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--cde-dark);
-  border: none;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-}
-
-/* Settings Panel */
-#settings-panel {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
-  z-index: 100000;
-}
-
-.settings-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 8px;
-  font-size: 10pt;
-}
-
-.hidden {
-  display: none !important;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -460,12 +17,17 @@ body {
 <!-- Front Panel -->
 <div id="front-panel">
   <div class="panel-section panel-left">
-    <div class="panel-btn panel-menu-btn" id="app-manager-btn">
-      <div>App</div>
-      <div>Manager</div>
+    <div class="panel-btn panel-menu-btn" id="panel-menu-btn">
+      <div>Apps</div>
     </div>
-    <div class="panel-launchers" id="panel-launchers">
-      <!-- Launchers will be added here by main.js -->
+    <div class="panel-btn" id="panel-terminal">
+      <img src="icons/terminal.png" alt="Terminal">
+    </div>
+    <div class="panel-btn" id="panel-files">
+      <img src="icons/files.png" alt="Files">
+    </div>
+    <div class="panel-btn" id="panel-editor">
+      <img src="icons/editor.png" alt="Editor">
     </div>
   </div>
   
@@ -481,7 +43,6 @@ body {
   
   <div class="panel-section panel-right">
     <div class="panel-clock" id="panel-clock">00:00</div>
-    <!-- Additional controls like style manager or trash can go here -->
   </div>
 </div>
 
@@ -489,7 +50,7 @@ body {
 <div id="settings-panel" class="hidden">
   <div class="window-titlebar">
     <div class="window-sysmenu"></div>
-    <div class="window-title">Settings</div>
+    <div class="window-title">Display Settings</div>
     <div class="window-buttons">
       <div class="window-button" onclick="closeSettings()">X</div>
     </div>
@@ -501,8 +62,9 @@ body {
       <input type="checkbox" id="setting-focus-follows">
     </div>
     
-    <div style="margin-top: 12px; text-align: right;">
+    <div style="margin-top: 16px; text-align: right;">
       <button class="motif-button default" onclick="closeSettings()">OK</button>
+      <button class="motif-button" onclick="closeSettings()">Cancel</button>
     </div>
   </div>
 </div>
@@ -510,18 +72,14 @@ body {
 <!-- Core System Scripts -->
 <script src="js/filesystem.js"></script>
 <script src="js/window-manager.js"></script>
-<script src="js/gui-components.js"></script>
 <script src="js/context-menu.js"></script>
-
-<!-- Application Scripts -->
+<script src="js/gui-components.js"></script>
 <script src="js/apps/terminal.js"></script>
 <script src="js/apps/editor.js"></script>
 <script src="js/apps/files.js"></script>
 <script src="js/apps/calculator.js"></script>
 <script src="js/apps/clock.js"></script>
 <script src="js/apps/about.js"></script>
-
-<!-- Main Script -->
 <script src="js/main.js"></script>
 
 </body>

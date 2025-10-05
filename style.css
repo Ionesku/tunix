@@ -1,0 +1,753 @@
+/* AUTHENTIC CDE/MOTIF STYLES - TRUE 1990s */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+  text-rendering: optimizeSpeed;
+}
+
+:root {
+  /* AUTHENTIC CDE PALETTE - From real CDE screenshots */
+  --cde-bg: #AEB2C3;           /* Classic CDE background */
+  --cde-bg-light: #C7CAD8;     /* Lighter shade */
+  --cde-bg-dark: #949AAC;      /* Darker shade */
+  
+  --cde-highlight: #DCDEE5;    /* Top/left bevels */
+  --cde-shadow: #5F6371;        /* Bottom/right bevels */
+  --cde-shadow-dark: #404553;   /* Deep shadow */
+  
+  --cde-select: #4B6983;        /* Selection blue */
+  --cde-select-light: #6B89A3;  /* Selection highlight */
+  
+  --cde-desktop: #4B6983;       /* Desktop background */
+  --cde-panel: #AEB2C3;         /* Panel background */
+  
+  --cde-text: #000000;
+  --cde-text-light: #FFFFFF;
+  --cde-text-disabled: #6B7282;
+}
+
+body {
+  font-family: "-dt-interface system-medium-r-normal-s*sans-*-*-*-*-*-*-*-*", 
+               "Lucida Sans", "Geneva", "Helvetica", sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  background: var(--cde-desktop);
+  overflow: hidden;
+  cursor: default;
+  user-select: none;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Desktop with subtle pattern */
+#desktop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 52px;
+  background: var(--cde-desktop);
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0,0,0,0.02) 10px,
+      rgba(0,0,0,0.02) 20px
+    );
+}
+
+/* Desktop Icons - Authentic Style */
+.desktop-icon {
+  position: absolute;
+  width: 80px;
+  text-align: center;
+  padding: 8px 4px;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.desktop-icon:hover {
+  background: rgba(255,255,255,0.1);
+  outline: 1px dotted var(--cde-highlight);
+}
+
+.desktop-icon.selected {
+  background: var(--cde-select);
+  outline: 1px solid var(--cde-select-light);
+}
+
+.desktop-icon.selected .icon-label {
+  color: var(--cde-text-light);
+}
+
+.icon-image {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cde-bg);
+  border: 3px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  box-shadow: 1px 1px 0 var(--cde-shadow-dark);
+}
+
+.icon-image img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+.icon-label {
+  color: var(--cde-text-light);
+  font-size: 11px;
+  font-weight: normal;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+  line-height: 1.2;
+}
+
+/* WINDOWS - TRUE MOTIF STYLE */
+.window {
+  position: absolute;
+  min-width: 200px;
+  min-height: 100px;
+  background: var(--cde-bg);
+  border: 5px solid var(--cde-bg);
+  box-shadow: 
+    inset -2px -2px 0 var(--cde-shadow),
+    inset 2px 2px 0 var(--cde-highlight),
+    2px 2px 0 var(--cde-shadow-dark);
+  display: flex;
+  flex-direction: column;
+}
+
+.window.active {
+  z-index: 1000;
+}
+
+/* Window Titlebar - Authentic Motif */
+.window-titlebar {
+  height: 24px;
+  background: linear-gradient(to bottom, var(--cde-select), var(--cde-select-light));
+  border: 2px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  display: flex;
+  align-items: center;
+  cursor: move;
+  padding: 0 4px;
+  margin-bottom: 2px;
+}
+
+.window:not(.active) .window-titlebar {
+  background: var(--cde-bg-dark);
+  background: linear-gradient(to bottom, var(--cde-bg), var(--cde-bg-dark));
+}
+
+/* System Menu Button - Classic Style */
+.window-sysmenu {
+  width: 18px;
+  height: 18px;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  margin-right: 6px;
+  cursor: pointer;
+  position: relative;
+}
+
+.window-sysmenu::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 2px;
+  background: var(--cde-text);
+}
+
+.window-sysmenu:active {
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+}
+
+.window-title {
+  flex: 1;
+  color: var(--cde-text-light);
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+.window:not(.active) .window-title {
+  color: var(--cde-text);
+  text-shadow: none;
+}
+
+.window-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.window-button {
+  width: 18px;
+  height: 18px;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  padding-bottom: 2px;
+}
+
+.window-button:active {
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+}
+
+/* Window Content */
+.window-content {
+  flex: 1;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  margin: 2px;
+  overflow: auto;
+  padding: 4px;
+}
+
+/* Resize Handle */
+.window-resize {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 18px;
+  height: 18px;
+  cursor: se-resize;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+}
+
+.window-resize::after {
+  content: '';
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 10px 10px;
+  border-color: transparent transparent var(--cde-shadow) transparent;
+}
+
+/* FRONT PANEL - AUTHENTIC CDE */
+#front-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: var(--cde-panel);
+  border-top: 3px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  display: flex;
+  align-items: center;
+  padding: 4px 6px;
+  gap: 6px;
+  box-shadow: 0 -2px 0 var(--cde-shadow-dark);
+}
+
+.panel-section {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+}
+
+.panel-left {
+  flex-shrink: 0;
+}
+
+.panel-center {
+  flex: 1;
+  justify-content: center;
+}
+
+.panel-right {
+  flex-shrink: 0;
+}
+
+/* Panel Button - Classic Motif */
+.panel-btn {
+  width: 44px;
+  height: 44px;
+  background: var(--cde-bg);
+  border: 3px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+}
+
+.panel-btn:active {
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  padding: 3px 1px 1px 3px;
+}
+
+.panel-btn img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+/* App Manager Button */
+.panel-menu-btn {
+  width: auto;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: bold;
+  min-width: 60px;
+  height: 44px;
+}
+
+/* Workspace Switcher - Classic Style */
+.panel-workspaces {
+  display: grid;
+  grid-template-columns: 28px 28px;
+  grid-template-rows: 21px 21px;
+  gap: 0;
+  background: var(--cde-bg-dark);
+  border: 2px solid;
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  padding: 0;
+}
+
+.workspace-btn {
+  background: var(--cde-bg);
+  border: 1px solid var(--cde-shadow);
+  cursor: pointer;
+  position: relative;
+}
+
+.workspace-btn:hover {
+  background: var(--cde-bg-light);
+}
+
+.workspace-btn.active {
+  background: var(--cde-select);
+  border-color: var(--cde-select-light);
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.workspace-btn.active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
+  background: var(--cde-text-light);
+}
+
+/* Taskbar - Classic Motif */
+.panel-taskbar {
+  flex: 1;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  padding: 0 4px;
+  height: 36px;
+  align-items: center;
+  border: 2px solid;
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  background: var(--cde-bg-dark);
+}
+
+.taskbar-item {
+  padding: 4px 10px;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  cursor: pointer;
+  font-size: 11px;
+  white-space: nowrap;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+}
+
+.taskbar-item:active,
+.taskbar-item.active {
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  background: var(--cde-bg-dark);
+  padding: 5px 9px 3px 11px;
+}
+
+/* Panel Clock - Authentic Style */
+.panel-clock {
+  padding: 6px 10px;
+  background: var(--cde-bg-dark);
+  color: var(--cde-text);
+  font-size: 11px;
+  font-family: "Lucida Sans Typewriter", "Lucida Console", monospace;
+  font-weight: bold;
+  border: 2px solid;
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  min-width: 60px;
+  text-align: center;
+}
+
+/* Context Menu - Classic Motif */
+.context-menu {
+  position: absolute;
+  background: var(--cde-bg);
+  border: 3px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  min-width: 140px;
+  z-index: 100000;
+  padding: 2px;
+  box-shadow: 2px 2px 0 var(--cde-shadow-dark);
+}
+
+.context-menu-item {
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: normal;
+  color: var(--cde-text);
+}
+
+.context-menu-item:hover:not(.disabled) {
+  background: var(--cde-select);
+  color: var(--cde-text-light);
+}
+
+.context-menu-item.disabled {
+  color: var(--cde-text-disabled);
+  text-shadow: 1px 1px 0 var(--cde-highlight);
+}
+
+.context-menu-separator {
+  height: 2px;
+  margin: 2px 0;
+  border-top: 1px solid var(--cde-shadow);
+  border-bottom: 1px solid var(--cde-highlight);
+}
+
+/* MOTIF CONTROLS - Authentic Style */
+.motif-button {
+  background: var(--cde-bg);
+  border: 3px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  padding: 5px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: normal;
+  color: var(--cde-text);
+  box-shadow: 1px 1px 0 var(--cde-shadow-dark);
+}
+
+.motif-button:active {
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  padding: 6px 13px 4px 15px;
+  box-shadow: none;
+}
+
+.motif-button.default {
+  border-width: 4px;
+  font-weight: bold;
+  padding: 4px 13px;
+}
+
+.motif-button.default:active {
+  padding: 5px 12px 3px 14px;
+}
+
+.motif-input,
+.motif-textarea {
+  background: white;
+  border: 2px solid;
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  padding: 3px 4px;
+  font-family: "Lucida Sans Typewriter", monospace;
+  font-size: 11px;
+  color: var(--cde-text);
+}
+
+.motif-input:focus,
+.motif-textarea:focus {
+  outline: none;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Terminal Style */
+.terminal-content {
+  background: #000000;
+  color: #C0C0C0;
+  font-family: "Lucida Sans Typewriter", "Lucida Console", monospace;
+  font-size: 12px;
+  padding: 4px;
+  height: 100%;
+  overflow-y: auto;
+  line-height: 1.3;
+}
+
+.terminal-line {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.terminal-input-line {
+  display: flex;
+}
+
+.terminal-prompt {
+  color: #00FF00;
+  margin-right: 4px;
+}
+
+.terminal-input-line input {
+  background: transparent;
+  border: none;
+  color: #C0C0C0;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  flex: 1;
+}
+
+/* Scrollbar - Classic Motif */
+::-webkit-scrollbar {
+  width: 18px;
+  height: 18px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  min-height: 20px;
+}
+
+::-webkit-scrollbar-thumb:active {
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+}
+
+::-webkit-scrollbar-button {
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  height: 18px;
+  width: 18px;
+  position: relative;
+}
+
+::-webkit-scrollbar-button:active {
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+}
+
+/* Settings Panel */
+#settings-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  background: var(--cde-bg);
+  border: 5px solid var(--cde-bg);
+  box-shadow: 
+    inset -2px -2px 0 var(--cde-shadow),
+    inset 2px 2px 0 var(--cde-highlight),
+    2px 2px 0 var(--cde-shadow-dark);
+  z-index: 100000;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 12px;
+  font-size: 11px;
+}
+
+/* Menu Bar */
+.motif-menubar {
+  display: flex;
+  gap: 0;
+  padding: 2px;
+  border-bottom: 2px solid;
+  border-color: var(--cde-shadow) transparent transparent transparent;
+  background: var(--cde-bg);
+  margin-bottom: 2px;
+}
+
+.motif-menubar-item {
+  padding: 3px 10px;
+  cursor: pointer;
+  font-size: 11px;
+  border: 2px solid transparent;
+}
+
+.motif-menubar-item:hover {
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+}
+
+.motif-menubar-item:active {
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+}
+
+/* Status Bar */
+.motif-statusbar {
+  padding: 4px 8px;
+  font-size: 10px;
+  border-top: 2px solid;
+  border-color: var(--cde-highlight) transparent transparent transparent;
+  background: var(--cde-bg);
+  color: var(--cde-text);
+  margin-top: 2px;
+}
+
+/* List Box */
+.motif-list {
+  background: white;
+  border: 2px solid;
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  overflow-y: auto;
+  font-size: 11px;
+}
+
+.motif-list-item {
+  padding: 3px 6px;
+  cursor: pointer;
+}
+
+.motif-list-item:hover {
+  background: var(--cde-select);
+  color: var(--cde-text-light);
+}
+
+.motif-list-item.selected {
+  background: var(--cde-select);
+  color: var(--cde-text-light);
+}
+
+/* Toolbar */
+.motif-toolbar {
+  padding: 4px;
+  border-bottom: 2px solid;
+  border-color: var(--cde-shadow) transparent transparent transparent;
+  background: var(--cde-bg);
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+
+.motif-toolbar .motif-button {
+  padding: 3px 8px;
+  font-size: 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Panel / Frame */
+.motif-panel {
+  border: 2px solid;
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  background: var(--cde-bg-light);
+  padding: 4px;
+}
+
+.motif-frame {
+  border: 2px solid;
+  border-color: var(--cde-highlight) var(--cde-shadow) var(--cde-shadow) var(--cde-highlight);
+  background: var(--cde-bg);
+  padding: 8px;
+  margin: 4px 0;
+}
+
+/* Text Selection */
+::selection {
+  background: var(--cde-select);
+  color: var(--cde-text-light);
+}
+
+::-moz-selection {
+  background: var(--cde-select);
+  color: var(--cde-text-light);
+}
+
+/* Focus Outline */
+:focus {
+  outline: 1px dotted var(--cde-text);
+  outline-offset: 1px;
+}
+
+/* Radio & Checkbox */
+input[type="radio"],
+input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin: 0 4px;
+  vertical-align: middle;
+  background: white;
+  border: 2px solid;
+  border-color: var(--cde-shadow) var(--cde-highlight) var(--cde-highlight) var(--cde-shadow);
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  border-radius: 50%;
+}
+
+input[type="radio"]:checked::after {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: var(--cde-text);
+  border-radius: 50%;
+  margin: 2px;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✓';
+  display: block;
+  text-align: center;
+  line-height: 10px;
+  font-size: 10px;
+  color: var(--cde-text);
+  font-weight: bold;
+}
+

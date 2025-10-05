@@ -3,8 +3,6 @@
 
 'use strict';
 
-// --- ICONS WILL BE LOCAL FILES ---
-
 // Applications registry
 const Apps = {
   terminal: TerminalApp,
@@ -17,54 +15,44 @@ const Apps = {
 
 // Desktop icon definitions
 const desktopIcons = [
-  { app: 'terminal', x: 10, y: 10, label: 'Terminal' },
-  { app: 'editor', x: 10, y: 90, label: 'Text Editor' },
-  { app: 'files', x: 10, y: 170, label: 'File Manager' },
-  { app: 'calculator', x: 10, y: 250, label: 'Calculator' },
-  { app: 'clock', x: 10, y: 330, label: 'Clock' },
-  { app: 'about', x: 10, y: 410, label: 'About' }
+  { app: 'terminal', x: 20, y: 20, label: 'Terminal', icon: 'icons/terminal.png' },
+  { app: 'editor', x: 20, y: 110, label: 'Text Editor', icon: 'icons/editor.png' },
+  { app: 'files', x: 20, y: 200, label: 'File Manager', icon: 'icons/files.png' },
+  { app: 'calculator', x: 20, y: 290, label: 'Calculator', icon: 'icons/calculator.png' },
+  { app: 'clock', x: 20, y: 380, label: 'Clock', icon: 'icons/clock.png' },
+  { app: 'about', x: 20, y: 470, label: 'About', icon: 'icons/about.png' }
 ];
 
 // Initialize desktop icons
 function initDesktopIcons() {
   const desktop = document.getElementById('desktop');
   
-  desktopIcons.forEach(({ app, x, y, label }) => {
-    const icon = document.createElement('div');
-    icon.className = 'desktop-icon';
-    icon.style.left = x + 'px';
-    icon.style.top = y + 'px';
-    icon.dataset.app = app;
+  desktopIcons.forEach(({ app, x, y, label, icon }) => {
+    const iconEl = document.createElement('div');
+    iconEl.className = 'desktop-icon';
+    iconEl.style.left = x + 'px';
+    iconEl.style.top = y + 'px';
+    iconEl.dataset.app = app;
     
-    // SVG icons for each app
-    const icons = {
-      terminal: '<svg width="32" height="32" fill="currentColor"><rect x="4" y="4" width="24" height="20" fill="#000" stroke="#0F0"/><text x="6" y="16" fill="#0F0" font-size="10">$_</text></svg>',
-      editor: '<svg width="32" height="32" fill="currentColor"><rect x="6" y="4" width="20" height="24" fill="#FFF" stroke="#000"/><line x1="9" y1="9" x2="23" y2="9" stroke="#000"/><line x1="9" y1="13" x2="23" y2="13" stroke="#000"/><line x1="9" y1="17" x2="19" y2="17" stroke="#000"/></svg>',
-      files: '<svg width="32" height="32" fill="currentColor"><path d="M8 8 L12 8 L14 6 L24 6 L24 24 L8 24 Z" fill="#D4B830" stroke="#000"/><rect x="8" y="10" width="16" height="14" fill="#E8D060"/></svg>',
-      calculator: '<svg width="32" height="32" fill="currentColor"><rect x="6" y="4" width="20" height="24" fill="#C0C0C0" stroke="#000"/><rect x="8" y="6" width="16" height="5" fill="#A0D8A0" stroke="#000"/><rect x="8" y="13" width="4" height="4" fill="#808080"/><rect x="14" y="13" width="4" height="4" fill="#808080"/><rect x="20" y="13" width="4" height="4" fill="#808080"/></svg>',
-      clock: '<svg width="32" height="32" fill="currentColor"><circle cx="16" cy="16" r="14" fill="#FFF" stroke="#000" stroke-width="2"/><circle cx="16" cy="16" r="2" fill="#000"/><line x1="16" y1="16" x2="16" y2="6" stroke="#000" stroke-width="2"/><line x1="16" y1="16" x2="22" y2="16" stroke="#000"/></svg>',
-      about: '<svg width="32" height="32" fill="currentColor"><circle cx="16" cy="16" r="14" fill="#4A7C9E" stroke="#000" stroke-width="2"/><text x="12" y="22" fill="#FFF" font-size="18" font-weight="bold">i</text></svg>'
-    };
-    
-    icon.innerHTML = `
+    iconEl.innerHTML = `
       <div class="icon-image">
-        ${icons[app] || icons.about}
+        <img src="${icon}" alt="${label}">
       </div>
       <div class="icon-label">${label}</div>
     `;
     
-    icon.addEventListener('dblclick', () => {
+    iconEl.addEventListener('dblclick', () => {
       if (Apps[app]) Apps[app].launch();
     });
     
-    icon.addEventListener('click', (e) => {
+    iconEl.addEventListener('click', (e) => {
       if (!e.ctrlKey) {
         document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
       }
-      icon.classList.toggle('selected');
+      iconEl.classList.toggle('selected');
     });
     
-    desktop.appendChild(icon);
+    desktop.appendChild(iconEl);
   });
   
   // Click desktop to deselect all
@@ -77,29 +65,10 @@ function initDesktopIcons() {
 
 // Initialize Front Panel launchers
 function initFrontPanel() {
-  const launchers = document.getElementById('panel-launchers');
-  
-  const launcherApps = ['terminal', 'files', 'editor', 'calculator'];
-  
-  launcherApps.forEach(appName => {
-    const app = Apps[appName];
-    if (!app) return;
-    
-    const btn = document.createElement('div');
-    btn.className = 'panel-btn';
-    
-    // SVG icons for panel
-    const panelIcons = {
-      terminal: '<svg width="24" height="24" fill="#000"><rect x="2" y="4" width="20" height="16" fill="#000" stroke="#0F0"/><text x="4" y="14" fill="#0F0" font-size="8">$_</text></svg>',
-      files: '<svg width="24" height="24" fill="#000"><path d="M4 6 L8 6 L10 4 L20 4 L20 20 L4 20 Z" fill="#D4B830" stroke="#000"/></svg>',
-      editor: '<svg width="24" height="24" fill="#000"><rect x="4" y="2" width="16" height="20" fill="#FFF" stroke="#000"/><line x1="6" y1="6" x2="18" y2="6" stroke="#000"/><line x1="6" y1="10" x2="18" y2="10" stroke="#000"/></svg>',
-      calculator: '<svg width="24" height="24" fill="#000"><rect x="4" y="2" width="16" height="20" fill="#C0C0C0" stroke="#000"/><rect x="6" y="4" width="12" height="4" fill="#A0D8A0"/></svg>'
-    };
-    
-    btn.innerHTML = panelIcons[appName] || '';
-    btn.addEventListener('click', () => app.launch());
-    launchers.appendChild(btn);
-  });
+  // Panel button click handlers
+  document.getElementById('panel-terminal').addEventListener('click', () => Apps.terminal.launch());
+  document.getElementById('panel-files').addEventListener('click', () => Apps.files.launch());
+  document.getElementById('panel-editor').addEventListener('click', () => Apps.editor.launch());
   
   // Panel menu button
   const menuBtn = document.getElementById('panel-menu-btn');
@@ -134,7 +103,7 @@ function initFrontPanel() {
   
   // Clock update
   updatePanelClock();
-  setInterval(updatePanelClock, 5000);
+  setInterval(updatePanelClock, 1000);
 }
 
 function updatePanelClock() {

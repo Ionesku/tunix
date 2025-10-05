@@ -19,7 +19,7 @@ const ClockApp = {
       dateDisplay.style.cssText = 'font-size: 12pt;';
       
       const dayDisplay = document.createElement('div');
-      dayDisplay.style.cssText = 'font-size: 10pt; color: var(--cde-dark); margin-top: 8px;';
+      dayDisplay.style.cssText = 'font-size: 10pt; color: var(--cde-text-disabled); margin-top: 8px;';
       
       const updateClock = () => {
         const now = new Date();

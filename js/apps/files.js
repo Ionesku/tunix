@@ -167,22 +167,13 @@ const FilesApp = {
       
       const createFileItem = (name, type) => {
         const item = document.createElement('div');
-        item.style.cssText = 'padding: 4px 8px; cursor: pointer; font-size: 10pt; display: flex; align-items: center; gap: 8px;';
+        item.className = 'motif-list-item';
+        item.style.cssText = 'display: flex; align-items: center; gap: 8px;';
         
         const icon = type === 'directory' ? '📁' : '📄';
         const displayName = type === 'directory' ? `${name}/` : name;
         
         item.innerHTML = `<span style="font-size: 14pt;">${icon}</span><span>${displayName}</span>`;
-        
-        item.addEventListener('mouseenter', () => {
-          item.style.background = 'var(--cde-accent-alt)';
-          item.style.color = 'var(--cde-text-inv)';
-        });
-        
-        item.addEventListener('mouseleave', () => {
-          item.style.background = '';
-          item.style.color = '';
-        });
         
         return item;
       };

@@ -47,32 +47,22 @@ const GUI = {
   // Create a toolbar
   createToolbar() {
     const toolbar = document.createElement('div');
-    toolbar.style.cssText = 'padding: 4px; border-bottom: 2px solid var(--cde-dark); background: var(--cde-base); display: flex; gap: 4px; flex-wrap: wrap;';
+    toolbar.className = 'motif-toolbar';
     return toolbar;
   },
 
   // Create a list container
   createList() {
     const list = document.createElement('div');
-    list.style.cssText = 'background: #FFF; border-style: solid; border-width: 2px; border-top-color: var(--cde-dark); border-left-color: var(--cde-dark); border-right-color: var(--cde-light); border-bottom-color: var(--cde-light); overflow-y: auto;';
+    list.className = 'motif-list';
     return list;
   },
 
   // Create a list item
   createListItem(text, onClick) {
     const item = document.createElement('div');
-    item.style.cssText = 'padding: 4px 8px; cursor: pointer; font-size: 10pt;';
+    item.className = 'motif-list-item';
     item.textContent = text;
-    
-    item.addEventListener('mouseenter', () => {
-      item.style.background = 'var(--cde-accent-alt)';
-      item.style.color = 'var(--cde-text-inv)';
-    });
-    
-    item.addEventListener('mouseleave', () => {
-      item.style.background = '';
-      item.style.color = '';
-    });
     
     if (onClick) item.addEventListener('click', onClick);
     
@@ -82,21 +72,21 @@ const GUI = {
   // Create a menu bar
   createMenuBar() {
     const menuBar = document.createElement('div');
-    menuBar.style.cssText = 'display: flex; gap: 2px; padding: 2px; border-bottom: 2px solid var(--cde-dark); background: var(--cde-base);';
+    menuBar.className = 'motif-menubar';
     return menuBar;
   },
 
   // Create a menu bar item
   createMenuItem(label, items) {
     const menuItem = document.createElement('div');
-    menuItem.className = 'motif-button';
-    menuItem.style.cssText = 'padding: 2px 8px; cursor: pointer;';
+    menuItem.className = 'motif-menubar-item';
     menuItem.textContent = label;
     
     menuItem.addEventListener('click', (e) => {
       const rect = menuItem.getBoundingClientRect();
-      const viewport = document.getElementById('viewport').getBoundingClientRect();
-      contextMenu.show(items, rect.left - viewport.left, rect.bottom - viewport.top);
+      const desktop = document.getElementById('desktop');
+      const desktopRect = desktop.getBoundingClientRect();
+      contextMenu.show(items, rect.left - desktopRect.left, rect.bottom - desktopRect.top);
     });
     
     return menuItem;
@@ -105,8 +95,7 @@ const GUI = {
   // Create a status bar
   createStatusBar(text = 'Ready') {
     const statusBar = document.createElement('div');
-    statusBar.className = 'motif-panel';
-    statusBar.style.cssText = 'padding: 3px 6px; font-size: 8pt; border-top: 2px solid var(--cde-dark);';
+    statusBar.className = 'motif-statusbar';
     statusBar.textContent = text;
     return statusBar;
   },
@@ -114,7 +103,7 @@ const GUI = {
   // Create a label
   createLabel(text) {
     const label = document.createElement('label');
-    label.style.cssText = 'font-size: 10pt;';
+    label.style.cssText = 'font-size: 11px;';
     label.textContent = text;
     return label;
   },
@@ -127,12 +116,11 @@ const GUI = {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.checked = checked;
-    checkbox.style.cssText = 'width: 16px; height: 16px;';
     if (onChange) checkbox.addEventListener('change', onChange);
     
     const labelEl = document.createElement('label');
     labelEl.textContent = label;
-    labelEl.style.cssText = 'font-size: 10pt; cursor: pointer;';
+    labelEl.style.cssText = 'font-size: 11px; cursor: pointer;';
     labelEl.addEventListener('click', () => {
       checkbox.checked = !checkbox.checked;
       if (onChange) onChange({ target: checkbox });
@@ -150,7 +138,7 @@ const GUI = {
       content.style.cssText = 'display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; text-align: center;';
       
       const messageEl = document.createElement('div');
-      messageEl.style.cssText = 'margin-bottom: 16px; font-size: 10pt;';
+      messageEl.style.cssText = 'margin-bottom: 16px; font-size: 11px;';
       messageEl.textContent = message;
       
       const okBtn = this.createDefaultButton('OK', () => {
@@ -168,7 +156,7 @@ const GUI = {
       content.style.cssText = 'display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; text-align: center;';
       
       const messageEl = document.createElement('div');
-      messageEl.style.cssText = 'margin-bottom: 16px; font-size: 10pt;';
+      messageEl.style.cssText = 'margin-bottom: 16px; font-size: 11px;';
       messageEl.textContent = message;
       
       const buttonContainer = document.createElement('div');
@@ -198,7 +186,7 @@ const GUI = {
       content.style.cssText = 'display: flex; flex-direction: column; padding: 16px; gap: 12px;';
       
       const messageEl = document.createElement('div');
-      messageEl.style.cssText = 'font-size: 10pt;';
+      messageEl.style.cssText = 'font-size: 11px;';
       messageEl.textContent = message;
       
       const input = this.createInput(defaultValue);
