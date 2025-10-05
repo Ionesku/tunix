@@ -12,31 +12,35 @@
   box-sizing: border-box;
 }
 
-/* CDE Authentic Color Palette */
+/* Modernized CDE-NG (Next Generation) Color Palette & Style */
 :root {
-  --cde-bg: #8B8B8B;
-  --cde-fg: #DCDCDC;
+  --cde-bg: #EAEAEA; /* Lighter background */
+  --cde-fg: #F5F5F5; /* Content background */
   --cde-light: #FFFFFF;
-  --cde-dark: #5A5A5A;
-  --cde-darker: #404040;
-  --cde-select: #4A7B8C;
-  --cde-titlebar: #6B8E9F;
-  --cde-titlebar-inactive: #8B8B8B;
+  --cde-dark: #B0B0B0; /* Softer shadow */
+  --cde-darker: #707070; /* Darker accents */
+  --cde-select: #0078D4; /* Modern accent blue */
+  --cde-titlebar: #333333; /* Dark titlebar for contrast */
+  --cde-titlebar-inactive: #B0B0B0; /* Lighter inactive titlebar */
   --cde-text: #000000;
   --cde-text-light: #FFFFFF;
-  --cde-desktop: #4A7B8C;
+  --cde-desktop: #0078D4; /* A solid, modern blue */
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --border-radius: 4px;
 }
 
 body {
-  font-family: 'Courier New', 'Courier', monospace;
-  font-size: 11px;
-  font-weight: normal;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 13px;
   background: var(--cde-desktop);
   overflow: hidden;
   cursor: default;
   user-select: none;
-  -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: unset;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #desktop {
@@ -46,14 +50,7 @@ body {
   right: 0;
   bottom: 48px;
   background: var(--cde-desktop);
-  background-image: 
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 10px,
-      rgba(0,0,0,.03) 10px,
-      rgba(0,0,0,.03) 20px
-    );
+  /* Removing the noisy repeating-gradient for a cleaner look */
 }
 
 /* Desktop Icons */
@@ -63,16 +60,18 @@ body {
   text-align: center;
   padding: 4px;
   cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: background-color 0.2s ease-in-out;
 }
 
 .desktop-icon:hover {
-  outline: 1px dotted #FFF;
-  background: rgba(0,0,0,0.1);
+  outline: none;
+  background: rgba(255,255,255,0.1);
 }
 
 .desktop-icon.selected {
-  outline: 1px dotted #FFF;
-  background: rgba(0,0,0,0.2);
+  outline: 2px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.2);
 }
 
 .icon-image {
@@ -82,29 +81,29 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--cde-fg);
-  border: 2px solid var(--cde-dark);
+  background: transparent;
+  border: none;
 }
 
 .icon-label {
   color: #FFF;
-  font-size: 10px;
-  text-shadow: 1px 1px 0 #000;
+  font-size: 12px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
   line-height: 1.2;
 }
 
 /* Windows */
 .window {
   position: absolute;
-  min-width: 200px;
-  min-height: 100px;
+  min-width: 250px;
+  min-height: 150px;
   background: var(--cde-bg);
-  border: 2px solid var(--cde-dark);
-  box-shadow: 
-    inset -1px -1px 0 var(--cde-darker),
-    inset 1px 1px 0 var(--cde-light);
+  border: 1px solid var(--cde-darker);
+  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
+  border-radius: var(--border-radius);
+  overflow: hidden; /* To contain rounded corners */
 }
 
 .window.active {
@@ -113,13 +112,14 @@ body {
 
 /* Window Titlebar */
 .window-titlebar {
-  height: 20px;
+  height: 28px;
   background: var(--cde-titlebar-inactive);
-  border-bottom: 1px solid var(--cde-darker);
+  border-bottom: 1px solid var(--cde-dark);
   display: flex;
   align-items: center;
   cursor: move;
-  padding: 0 2px;
+  padding: 0 4px;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .window.active .window-titlebar {
@@ -127,20 +127,26 @@ body {
 }
 
 .window-sysmenu {
-  width: 16px;
-  height: 16px;
-  background: var(--cde-fg);
-  border: 1px solid var(--cde-darker);
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
   margin-right: 4px;
   cursor: pointer;
+  /* TODO: Replace with a proper icon */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='3' y1='12' x2='21' y2='12'/%3E%3C/svg%3E");
+  background-size: 16px 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.7;
 }
 
 .window-title {
   flex: 1;
   color: var(--cde-text-light);
-  font-size: 11px;
-  font-weight: bold;
-  padding: 0 4px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0 8px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -148,41 +154,48 @@ body {
 
 .window-buttons {
   display: flex;
-  gap: 2px;
+  gap: 4px;
 }
 
 .window-button {
-  width: 16px;
-  height: 16px;
-  background: var(--cde-fg);
-  border: 1px solid var(--cde-darker);
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: normal;
+  color: var(--cde-text-light);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.window-button:hover {
+  background: rgba(255,255,255,0.2);
 }
 
 .window-button:active {
-  background: var(--cde-dark);
+  background: rgba(255,255,255,0.3);
 }
 
 .window-content {
   flex: 1;
   background: var(--cde-fg);
   overflow: auto;
-  padding: 4px;
+  padding: 8px;
 }
 
 .window-resize {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   cursor: se-resize;
-  background: linear-gradient(135deg, transparent 50%, var(--cde-darker) 50%);
+  background: transparent; /* Cleaner resize handle */
 }
 
 /* Front Panel */
@@ -193,18 +206,18 @@ body {
   right: 0;
   height: 48px;
   background: var(--cde-bg);
-  border-top: 2px solid var(--cde-light);
-  box-shadow: inset 0 1px 0 var(--cde-light);
+  border-top: 1px solid var(--cde-dark);
+  box-shadow: var(--shadow-lg);
   display: flex;
   align-items: center;
   padding: 4px;
-  gap: 4px;
+  gap: 8px;
 }
 
 .panel-section {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
 }
 
 .panel-left {
@@ -223,16 +236,22 @@ body {
   width: 40px;
   height: 40px;
   background: var(--cde-fg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-darker) var(--cde-darker) var(--cde-light);
+  border: 1px solid var(--cde-dark);
+  border-radius: var(--border-radius);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.panel-btn:hover {
+  background-color: #F0F0F0;
 }
 
 .panel-btn:active {
-  border-color: var(--cde-darker) var(--cde-light) var(--cde-light) var(--cde-darker);
+  border: 1px solid var(--cde-darker);
+  background-color: #E0E0E0;
 }
 
 .panel-menu-btn {
@@ -241,81 +260,88 @@ body {
 
 .panel-workspaces {
   display: flex;
-  gap: 2px;
+  gap: 4px;
   padding: 0 8px;
 }
 
 .workspace-btn {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   background: var(--cde-fg);
-  border: 1px solid var(--cde-darker);
+  border: 1px solid var(--cde-dark);
+  border-radius: var(--border-radius);
   cursor: pointer;
-  font-size: 10px;
+  font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease-in-out;
 }
 
 .workspace-btn.active {
   background: var(--cde-select);
   color: #FFF;
+  border-color: var(--cde-select);
 }
 
 .panel-taskbar {
   flex: 1;
   display: flex;
-  gap: 2px;
+  gap: 4px;
   overflow-x: auto;
   padding: 0 4px;
 }
 
 .taskbar-item {
-  padding: 2px 8px;
+  padding: 4px 12px;
   background: var(--cde-fg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-darker) var(--cde-darker) var(--cde-light);
+  border: 1px solid var(--cde-dark);
+  border-radius: var(--border-radius);
   cursor: pointer;
-  font-size: 10px;
+  font-size: 12px;
   white-space: nowrap;
-  max-width: 120px;
+  max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 24px;
+  height: 28px;
   display: flex;
   align-items: center;
+  transition: all 0.2s ease-in-out;
 }
 
 .taskbar-item.active {
-  border-color: var(--cde-darker) var(--cde-light) var(--cde-light) var(--cde-darker);
+  border-color: var(--cde-select);
   background: var(--cde-select);
   color: #FFF;
+  font-weight: 500;
 }
 
 .panel-clock {
-  padding: 2px 8px;
-  background: var(--cde-dark);
-  color: #FFF;
-  font-size: 11px;
-  font-family: 'Courier New', monospace;
-  border: 1px solid var(--cde-darker);
+  padding: 4px 12px;
+  background: transparent;
+  color: var(--cde-text);
+  font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  border: none;
 }
 
 /* Context Menu */
 .context-menu {
   position: absolute;
   background: var(--cde-fg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-darker) var(--cde-darker) var(--cde-light);
-  min-width: 120px;
+  border: 1px solid var(--cde-dark);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--border-radius);
+  min-width: 150px;
   z-index: 100000;
-  padding: 2px;
+  padding: 4px;
 }
 
 .context-menu-item {
-  padding: 4px 8px;
+  padding: 6px 12px;
   cursor: pointer;
-  font-size: 11px;
+  font-size: 13px;
+  border-radius: var(--border-radius);
 }
 
 .context-menu-item:hover:not(.disabled) {
@@ -325,49 +351,74 @@ body {
 
 .context-menu-item.disabled {
   color: var(--cde-dark);
+  cursor: default;
 }
 
 .context-menu-separator {
   height: 1px;
-  background: var(--cde-darker);
-  margin: 2px;
+  background: var(--cde-dark);
+  margin: 4px 0;
 }
 
 /* Controls */
 .motif-button {
   background: var(--cde-fg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-darker) var(--cde-darker) var(--cde-light);
-  padding: 4px 12px;
+  border: 1px solid var(--cde-dark);
+  border-radius: var(--border-radius);
+  padding: 6px 14px;
   cursor: pointer;
   font-family: inherit;
-  font-size: 11px;
+  font-size: 13px;
+  transition: all 0.2s ease-in-out;
+}
+
+.motif-button:hover {
+  border-color: var(--cde-darker);
+  background-color: #F0F0F0;
 }
 
 .motif-button:active {
-  border-color: var(--cde-darker) var(--cde-light) var(--cde-light) var(--cde-darker);
+  border-color: var(--cde-darker);
+  background-color: #E0E0E0;
 }
 
 .motif-button.default {
-  font-weight: bold;
+  background-color: var(--cde-select);
+  color: var(--cde-text-light);
+  border-color: var(--cde-select);
+}
+
+.motif-button.default:hover {
+  opacity: 0.9;
+  border-color: var(--cde-select);
+  background-color: var(--cde-select);
 }
 
 .motif-input,
 .motif-textarea {
   background: #FFF;
-  border: 2px inset var(--cde-dark);
-  padding: 2px;
+  border: 1px solid var(--cde-dark);
+  border-radius: var(--border-radius);
+  padding: 6px;
   font-family: inherit;
-  font-size: 11px;
+  font-size: 13px;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.motif-input:focus,
+.motif-textarea:focus {
+  outline: none;
+  border-color: var(--cde-select);
+  box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.3);
 }
 
 /* Terminal */
 .terminal-content {
-  background: #000;
-  color: #0F0;
-  font-family: 'Courier New', monospace;
-  font-size: 12px;
-  padding: 4px;
+  background: #1E1E1E;
+  color: #D4D4D4;
+  font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
+  font-size: 14px;
+  padding: 8px;
   height: 100%;
   overflow-y: auto;
 }
@@ -382,14 +433,14 @@ body {
 }
 
 .terminal-prompt {
-  color: #0F0;
-  margin-right: 4px;
+  color: #569CD6;
+  margin-right: 8px;
 }
 
 .terminal-input-line input {
   background: transparent;
   border: none;
-  color: #0F0;
+  color: #D4D4D4;
   font-family: inherit;
   font-size: inherit;
   outline: none;
@@ -398,19 +449,22 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--cde-bg);
-  border: 1px solid var(--cde-darker);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--cde-fg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-darker) var(--cde-darker) var(--cde-light);
+  background: var(--cde-dark);
+  border-radius: 6px;
+  border: 3px solid var(--cde-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cde-darker);
 }
 
 /* Settings Panel */
@@ -419,11 +473,13 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
+  width: 350px;
   background: var(--cde-bg);
-  border: 2px solid;
-  border-color: var(--cde-light) var(--cde-darker) var(--cde-darker) var(--cde-light);
+  border: 1px solid var(--cde-darker);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--border-radius);
   z-index: 100000;
+  overflow: hidden;
 }
 
 .settings-row {
@@ -431,7 +487,8 @@ body {
   align-items: center;
   justify-content: space-between;
   margin: 8px;
-  font-size: 11px;
+  font-size: 13px;
+  padding: 4px;
 }
 
 .hidden {
