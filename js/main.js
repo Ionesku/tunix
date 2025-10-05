@@ -134,7 +134,7 @@ function initFrontPanel() {
   
   // Clock update
   updatePanelClock();
-  setInterval(updatePanelClock, 1000);
+  setInterval(updatePanelClock, 5000);
 }
 
 function updatePanelClock() {

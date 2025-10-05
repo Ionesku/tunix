@@ -12,34 +12,30 @@
   box-sizing: border-box;
 }
 
-/* Modernized CDE-NG (Next Generation) Color Palette & Style */
+/* Authentic CDE/Motif Palette */
 :root {
-  --cde-bg: #EAEAEA; /* Lighter background */
-  --cde-fg: #F5F5F5; /* Content background */
-  --cde-light: #FFFFFF;
-  --cde-dark: #B0B0B0; /* Softer shadow */
-  --cde-darker: #707070; /* Darker accents */
-  --cde-select: #0078D4; /* Modern accent blue */
-  --cde-titlebar: #333333; /* Dark titlebar for contrast */
-  --cde-titlebar-inactive: #B0B0B0; /* Lighter inactive titlebar */
+  --cde-bg: #BDBDBD; /* Base */
+  --cde-fg: #BDBDBD; /* Base */
+  --cde-light: #FFFFFF; /* light */
+  --cde-dark: #7F7F7F; /* dark */
+  --cde-darker: #3E3E3E; /* Even darker for inset effects */
+  --cde-select: #000080; /* selection */
+  --cde-titlebar: #3A3A6A;
+  --cde-titlebar-inactive: #7F7F7F;
   --cde-text: #000000;
   --cde-text-light: #FFFFFF;
-  --cde-desktop: #0078D4; /* A solid, modern blue */
-
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --border-radius: 4px;
+  --cde-desktop: #3A6272; /* Solid gray-blue */
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 13px;
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", "Geneva", "Verdana", sans-serif;
+  font-size: 10pt;
+  font-weight: normal;
   background: var(--cde-desktop);
   overflow: hidden;
   cursor: default;
   user-select: none;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -48,9 +44,9 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 48px;
+  bottom: 56px; /* Adjusted for a slightly larger Front Panel */
   background: var(--cde-desktop);
-  /* Removing the noisy repeating-gradient for a cleaner look */
+  /* Removed diagonal stripes for a solid color */
 }
 
 /* Desktop Icons */
@@ -60,18 +56,16 @@ body {
   text-align: center;
   padding: 4px;
   cursor: pointer;
-  border-radius: var(--border-radius);
-  transition: background-color 0.2s ease-in-out;
 }
 
 .desktop-icon:hover {
-  outline: none;
-  background: rgba(255,255,255,0.1);
+  outline: 1px dotted #000;
+  background: rgba(0,0,0,0.1);
 }
 
 .desktop-icon.selected {
-  outline: 2px solid rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.2);
+  outline: 1px dotted #000;
+  background: rgba(0,0,0,0.2);
 }
 
 .icon-image {
@@ -81,29 +75,29 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: none;
+  background: var(--cde-fg);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
 }
 
 .icon-label {
   color: #FFF;
-  font-size: 12px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  font-size: 10pt;
+  text-shadow: 1px 1px 1px #000;
   line-height: 1.2;
 }
 
 /* Windows */
 .window {
   position: absolute;
-  min-width: 250px;
-  min-height: 150px;
+  min-width: 200px;
+  min-height: 100px;
   background: var(--cde-bg);
-  border: 1px solid var(--cde-darker);
-  box-shadow: var(--shadow-lg);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
+  box-shadow: none;
   display: flex;
   flex-direction: column;
-  border-radius: var(--border-radius);
-  overflow: hidden; /* To contain rounded corners */
 }
 
 .window.active {
@@ -112,14 +106,13 @@ body {
 
 /* Window Titlebar */
 .window-titlebar {
-  height: 28px;
+  height: 20px;
   background: var(--cde-titlebar-inactive);
-  border-bottom: 1px solid var(--cde-dark);
+  border-bottom: 2px solid var(--cde-dark);
   display: flex;
   align-items: center;
   cursor: move;
-  padding: 0 4px;
-  transition: background-color 0.2s ease-in-out;
+  padding: 0 2px;
 }
 
 .window.active .window-titlebar {
@@ -127,26 +120,21 @@ body {
 }
 
 .window-sysmenu {
-  width: 20px;
-  height: 20px;
-  background: transparent;
-  border: none;
+  width: 16px;
+  height: 16px;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
   margin-right: 4px;
   cursor: pointer;
-  /* TODO: Replace with a proper icon */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='3' y1='12' x2='21' y2='12'/%3E%3C/svg%3E");
-  background-size: 16px 16px;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.7;
 }
 
 .window-title {
   flex: 1;
   color: var(--cde-text-light);
-  font-size: 13px;
-  font-weight: 500;
-  padding: 0 8px;
+  font-size: 10pt;
+  font-weight: bold;
+  padding: 0 4px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -154,38 +142,32 @@ body {
 
 .window-buttons {
   display: flex;
-  gap: 4px;
+  gap: 2px;
 }
 
 .window-button {
-  width: 20px;
-  height: 20px;
-  background: transparent;
-  border: none;
-  border-radius: var(--border-radius);
+  width: 14px;
+  height: 14px;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: normal;
-  color: var(--cde-text-light);
-  transition: background-color 0.2s ease-in-out;
-}
-
-.window-button:hover {
-  background: rgba(255,255,255,0.2);
+  font-size: 10px;
+  font-weight: bold;
 }
 
 .window-button:active {
-  background: rgba(255,255,255,0.3);
+  border-color: var(--cde-dark) var(--cde-light) var(--cde-light) var(--cde-dark);
 }
 
 .window-content {
   flex: 1;
-  background: var(--cde-fg);
+  background: var(--cde-bg);
   overflow: auto;
-  padding: 8px;
+  padding: 4px;
 }
 
 .window-resize {
@@ -195,7 +177,14 @@ body {
   width: 16px;
   height: 16px;
   cursor: se-resize;
-  background: transparent; /* Cleaner resize handle */
+  background-image: 
+    linear-gradient(135deg, 
+      var(--cde-dark) 0%, var(--cde-dark) 15%, 
+      var(--cde-bg) 15%, var(--cde-bg) 35%, 
+      var(--cde-dark) 35%, var(--cde-dark) 50%, 
+      var(--cde-bg) 50%, var(--cde-bg) 70%, 
+      var(--cde-dark) 70%, var(--cde-dark) 85%, 
+      var(--cde-bg) 85%, var(--cde-bg) 100%);
 }
 
 /* Front Panel */
@@ -204,20 +193,20 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 48px;
+  height: 56px;
   background: var(--cde-bg);
-  border-top: 1px solid var(--cde-dark);
-  box-shadow: var(--shadow-lg);
+  border-top: 2px solid var(--cde-light);
+  box-shadow: none;
   display: flex;
   align-items: center;
   padding: 4px;
-  gap: 8px;
+  gap: 4px;
 }
 
 .panel-section {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 }
 
 .panel-left {
@@ -233,115 +222,107 @@ body {
 }
 
 .panel-btn {
-  width: 40px;
-  height: 40px;
-  background: var(--cde-fg);
-  border: 1px solid var(--cde-dark);
-  border-radius: var(--border-radius);
+  width: 48px;
+  height: 48px;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.panel-btn:hover {
-  background-color: #F0F0F0;
 }
 
 .panel-btn:active {
-  border: 1px solid var(--cde-darker);
-  background-color: #E0E0E0;
+  border-color: var(--cde-dark) var(--cde-light) var(--cde-light) var(--cde-dark);
 }
 
 .panel-menu-btn {
-  background: var(--cde-select) !important;
+  background: var(--cde-bg);
+  font-size: 9pt;
+  padding: 2px;
+  line-height: 1.1;
+  width: auto;
+  flex-direction: column;
 }
 
 .panel-workspaces {
-  display: flex;
-  gap: 4px;
-  padding: 0 8px;
+  display: grid;
+  grid-template-columns: 24px 24px;
+  grid-template-rows: 20px 20px;
+  gap: 1px;
+  padding: 2px;
+  background: var(--cde-dark);
+  border: 2px inset var(--cde-darker);
 }
 
 .workspace-btn {
-  width: 28px;
-  height: 28px;
-  background: var(--cde-fg);
-  border: 1px solid var(--cde-dark);
-  border-radius: var(--border-radius);
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
   cursor: pointer;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease-in-out;
 }
 
 .workspace-btn.active {
+  border-color: var(--cde-dark) var(--cde-light) var(--cde-light) var(--cde-dark);
   background: var(--cde-select);
-  color: #FFF;
-  border-color: var(--cde-select);
 }
 
 .panel-taskbar {
   flex: 1;
   display: flex;
-  gap: 4px;
+  gap: 2px;
   overflow-x: auto;
   padding: 0 4px;
+  height: 100%;
 }
 
 .taskbar-item {
-  padding: 4px 12px;
-  background: var(--cde-fg);
-  border: 1px solid var(--cde-dark);
-  border-radius: var(--border-radius);
+  padding: 2px 8px;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
   cursor: pointer;
-  font-size: 12px;
+  font-size: 10pt;
   white-space: nowrap;
-  max-width: 150px;
+  max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 28px;
+  height: 24px;
   display: flex;
   align-items: center;
-  transition: all 0.2s ease-in-out;
 }
 
 .taskbar-item.active {
-  border-color: var(--cde-select);
+  border-color: var(--cde-dark) var(--cde-light) var(--cde-light) var(--cde-dark);
   background: var(--cde-select);
   color: #FFF;
-  font-weight: 500;
 }
 
 .panel-clock {
-  padding: 4px 12px;
-  background: transparent;
+  padding: 4px 8px;
+  background: var(--cde-bg);
   color: var(--cde-text);
-  font-size: 13px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  border: none;
+  font-size: 10pt;
+  font-family: "Lucida Typewriter", "Lucida Console", monospace;
+  border: 2px inset var(--cde-darker);
 }
 
 /* Context Menu */
 .context-menu {
   position: absolute;
-  background: var(--cde-fg);
-  border: 1px solid var(--cde-dark);
-  box-shadow: var(--shadow-lg);
-  border-radius: var(--border-radius);
-  min-width: 150px;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
+  min-width: 120px;
   z-index: 100000;
-  padding: 4px;
+  padding: 2px;
 }
 
 .context-menu-item {
-  padding: 6px 12px;
+  padding: 4px 8px;
   cursor: pointer;
-  font-size: 13px;
-  border-radius: var(--border-radius);
+  font-size: 10pt;
 }
 
 .context-menu-item:hover:not(.disabled) {
@@ -351,74 +332,52 @@ body {
 
 .context-menu-item.disabled {
   color: var(--cde-dark);
-  cursor: default;
 }
 
 .context-menu-separator {
-  height: 1px;
+  height: 2px;
   background: var(--cde-dark);
-  margin: 4px 0;
+  border-bottom: 2px solid var(--cde-light);
+  margin: 2px;
 }
 
 /* Controls */
 .motif-button {
-  background: var(--cde-fg);
-  border: 1px solid var(--cde-dark);
-  border-radius: var(--border-radius);
-  padding: 6px 14px;
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
+  padding: 4px 12px;
   cursor: pointer;
   font-family: inherit;
-  font-size: 13px;
-  transition: all 0.2s ease-in-out;
-}
-
-.motif-button:hover {
-  border-color: var(--cde-darker);
-  background-color: #F0F0F0;
+  font-size: 10pt;
 }
 
 .motif-button:active {
-  border-color: var(--cde-darker);
-  background-color: #E0E0E0;
+  border-color: var(--cde-dark) var(--cde-light) var(--cde-light) var(--cde-dark);
 }
 
 .motif-button.default {
-  background-color: var(--cde-select);
-  color: var(--cde-text-light);
-  border-color: var(--cde-select);
-}
-
-.motif-button.default:hover {
-  opacity: 0.9;
-  border-color: var(--cde-select);
-  background-color: var(--cde-select);
+  font-weight: bold;
+  padding: 3px 11px;
+  border: 3px double var(--cde-dark);
 }
 
 .motif-input,
 .motif-textarea {
   background: #FFF;
-  border: 1px solid var(--cde-dark);
-  border-radius: var(--border-radius);
-  padding: 6px;
+  border: 2px inset var(--cde-darker);
+  padding: 2px;
   font-family: inherit;
-  font-size: 13px;
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.motif-input:focus,
-.motif-textarea:focus {
-  outline: none;
-  border-color: var(--cde-select);
-  box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.3);
+  font-size: 10pt;
 }
 
 /* Terminal */
 .terminal-content {
-  background: #1E1E1E;
-  color: #D4D4D4;
-  font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
-  font-size: 14px;
-  padding: 8px;
+  background: #000;
+  color: #E0E0E0;
+  font-family: "Lucida Typewriter", "Lucida Console", "Courier New", monospace;
+  font-size: 10pt;
+  padding: 4px;
   height: 100%;
   overflow-y: auto;
 }
@@ -433,14 +392,14 @@ body {
 }
 
 .terminal-prompt {
-  color: #569CD6;
-  margin-right: 8px;
+  color: #E0E0E0;
+  margin-right: 4px;
 }
 
 .terminal-input-line input {
   background: transparent;
   border: none;
-  color: #D4D4D4;
+  color: #E0E0E0;
   font-family: inherit;
   font-size: inherit;
   outline: none;
@@ -449,22 +408,19 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--cde-bg);
+  background: var(--cde-dark);
+  border: none;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--cde-dark);
-  border-radius: 6px;
-  border: 3px solid var(--cde-bg);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--cde-darker);
+  background: var(--cde-bg);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
 }
 
 /* Settings Panel */
@@ -473,13 +429,11 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 350px;
+  width: 300px;
   background: var(--cde-bg);
-  border: 1px solid var(--cde-darker);
-  box-shadow: var(--shadow-lg);
-  border-radius: var(--border-radius);
+  border: 2px solid;
+  border-color: var(--cde-light) var(--cde-dark) var(--cde-dark) var(--cde-light);
   z-index: 100000;
-  overflow: hidden;
 }
 
 .settings-row {
@@ -487,8 +441,7 @@ body {
   align-items: center;
   justify-content: space-between;
   margin: 8px;
-  font-size: 13px;
-  padding: 4px;
+  font-size: 10pt;
 }
 
 .hidden {
@@ -507,28 +460,28 @@ body {
 <!-- Front Panel -->
 <div id="front-panel">
   <div class="panel-section panel-left">
-    <div class="panel-btn panel-menu-btn" id="panel-menu-btn">
-      <svg width="24" height="24" fill="white">
-        <rect x="4" y="6" width="16" height="2"/>
-        <rect x="4" y="11" width="16" height="2"/>
-        <rect x="4" y="16" width="16" height="2"/>
-      </svg>
+    <div class="panel-btn panel-menu-btn" id="app-manager-btn">
+      <div>App</div>
+      <div>Manager</div>
     </div>
-    <div class="panel-launchers" id="panel-launchers"></div>
+    <div class="panel-launchers" id="panel-launchers">
+      <!-- Launchers will be added here by main.js -->
+    </div>
   </div>
   
   <div class="panel-section panel-center">
     <div class="panel-workspaces" id="panel-workspaces">
-      <div class="workspace-btn active" data-workspace="1">1</div>
-      <div class="workspace-btn" data-workspace="2">2</div>
-      <div class="workspace-btn" data-workspace="3">3</div>
-      <div class="workspace-btn" data-workspace="4">4</div>
+      <div class="workspace-btn active" data-workspace="1"></div>
+      <div class="workspace-btn" data-workspace="2"></div>
+      <div class="workspace-btn" data-workspace="3"></div>
+      <div class="workspace-btn" data-workspace="4"></div>
     </div>
     <div class="panel-taskbar" id="panel-taskbar"></div>
   </div>
   
   <div class="panel-section panel-right">
     <div class="panel-clock" id="panel-clock">00:00</div>
+    <!-- Additional controls like style manager or trash can go here -->
   </div>
 </div>
 
